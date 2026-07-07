@@ -2,10 +2,10 @@ use framework "Foundation"
 use framework "AppKit"
 use scripting additions
 
+
 --------------------------------------------------------------------------------
 -- Main entry point
 --------------------------------------------------------------------------------
-
 on run
 	tell application "Music"
 		set selectedTracks to selection
@@ -17,8 +17,14 @@ on run
 	end if
 	
 	-- Default options
-	set state to {includeWork:true, includeNumber:true, includeMovement:true, useRoman:true, workSeparator:": ", numberSeparator:". "}
-	
+	set state to {Â
+        includeWork:true, Â
+        includeNumber:true, Â
+        includeMovement:true, Â
+        useRoman:true, Â
+        workSeparator:": ", Â
+        numberSeparator:". "Â
+    }
 	
 	my showDialog(selectedTracks, state)
 end run
@@ -28,13 +34,11 @@ end run
 -- Show the dialog.
 -- Rebuilds itself whenever the user presses Refresh.
 --------------------------------------------------------------------------------
-
 on showDialog(selectedTracks, state)
 	
 	----------------------------------------------------------------------------
 	-- Build the alert
 	----------------------------------------------------------------------------
-	
 	set alert to current application's NSAlert's alloc()'s init()
 	alert's setMessageText:"Rename Classical Titles"
 	alert's setInformativeText:("Choose how to build the new title." & linefeed & "JAB 2026")
@@ -42,13 +46,11 @@ on showDialog(selectedTracks, state)
 	----------------------------------------------------------------------------
 	-- Build accessory view
 	----------------------------------------------------------------------------
-	
 	set accessoryView to current application's NSView's alloc()'s initWithFrame:{{0, 0}, {220, 170}}
 	
 	----------------------------------------------------------------------------
 	-- Checkboxes
 	----------------------------------------------------------------------------
-	
 	set workBox to current application's NSButton's alloc()'s initWithFrame:{{20, 150}, {250, 20}}
 	workBox's setButtonType:(current application's NSSwitchButton)
 	workBox's setTitle:"Include work"
@@ -76,7 +78,6 @@ on showDialog(selectedTracks, state)
 	----------------------------------------------------------------------------
 	-- Work Separator field
 	----------------------------------------------------------------------------
-	
 	set workSeparatorLabel to current application's NSTextField's labelWithString:"Work Separator:"
 	workSeparatorLabel's setFrame:{{20, 50}, {120, 20}}
 	accessoryView's addSubview:workSeparatorLabel
@@ -88,7 +89,6 @@ on showDialog(selectedTracks, state)
 	----------------------------------------------------------------------------
 	-- Number Separator field
 	----------------------------------------------------------------------------
-	
 	set numberSeparatorLabel to current application's NSTextField's labelWithString:"Number Separator:"
 	numberSeparatorLabel's setFrame:{{20, 25}, {120, 20}}
 	accessoryView's addSubview:numberSeparatorLabel
@@ -102,9 +102,7 @@ on showDialog(selectedTracks, state)
 	----------------------------------------------------------------------------
 	-- Buttons
 	----------------------------------------------------------------------------
-	
 	alert's addButtonWithTitle:"Rename"
-	-- alert's addButtonWithTitle:"Refresh"
 	alert's addButtonWithTitle:"Cancel"
 	
 	set response to alert's runModal()
@@ -112,7 +110,6 @@ on showDialog(selectedTracks, state)
 	----------------------------------------------------------------------------
 	-- Read the current UI state back
 	----------------------------------------------------------------------------
-	
 	set includeWork of state to ((workBox's state()) as integer = 1)
 	set includeNumber of state to ((numberBox's state()) as integer = 1)
 	set includeMovement of state to ((movementBox's state()) as integer = 1)
@@ -120,12 +117,10 @@ on showDialog(selectedTracks, state)
 	
 	set workSeparator of state to (workSeparatorField's stringValue() as text)
 	set numberSeparator of state to (numberSeparatorField's stringValue() as text)
-	-- set previewIndex of state to (stepper's integerValue()) as integer
 	
 	----------------------------------------------------------------------------
 	-- Button handling
 	----------------------------------------------------------------------------
-	
 	if response = (current application's NSAlertFirstButtonReturn) then
 		
 		-- Generate all new titles
@@ -155,7 +150,6 @@ on showDialog(selectedTracks, state)
 end showDialog
 
 
-
 on showPreviewDialog(titleList)
 	
 	set alert to current application's NSAlert's alloc()'s init()
@@ -175,10 +169,10 @@ on showPreviewDialog(titleList)
 	
 end showPreviewDialog
 
+
 --------------------------------------------------------------------------------
 -- Build a title for one track according to the current options
 --------------------------------------------------------------------------------
-
 on makeTitle(theTrack, state)
 	
 	tell application "Music"
@@ -229,7 +223,6 @@ end makeTitle
 --------------------------------------------------------------------------------
 -- Join a list of strings with a separator
 --------------------------------------------------------------------------------
-
 on joinList(theList, separator)
 	
 	if (count theList) = 0 then return ""
@@ -248,15 +241,15 @@ end joinList
 --------------------------------------------------------------------------------
 -- Roman numerals
 --------------------------------------------------------------------------------
-
 on romanNumeral(n)
 	
-	set numerals to {Â¬
-		"I", "II", "III", "IV", "V", Â¬
-		"VI", "VII", "VIII", "IX", "X", Â¬
-		"XI", "XII", "XIII", "XIV", "XV", Â¬
-		"XVI", "XVII", "XVIII", "XIX", Â¬
-		"XX"}
+	set numerals to {Â
+		"I", "II", "III", "IV", "V", Â
+		"VI", "VII", "VIII", "IX", "X", Â
+		"XI", "XII", "XIII", "XIV", "XV", Â
+		"XVI", "XVII", "XVIII", "XIX", Â
+		"XX"Â
+	}
 	
 	try
 		set n to n as integer
@@ -264,10 +257,10 @@ on romanNumeral(n)
 		return n as text
 	end try
 	
-	if n â‰¥ 1 and n â‰¤ (count numerals) then
-		return item n of numerals
-	else
-		return n as text
-	end if
+	if n >= 1 and n <= (count numerals) then
+        return item n of numerals
+    else
+        return n as text
+    end if
 	
 end romanNumeral
