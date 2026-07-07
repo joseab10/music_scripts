@@ -41,6 +41,26 @@ Used for removing N characters from the front or back of one of the following ta
 * Sort Artist
 * Sort Composer
 
+### SED Field
+Apply a SED command to a desired field. Supported fields are:
+
+* Title
+* Album
+* Album Artist
+* Artist
+* Category
+* Comments
+* Composer
+* Grouping
+* Work
+* Movement
+
+* Sort Title
+* Sort Album
+* Sort Album Artist
+* Sort Artist
+* Sort Composer
+
 ### Work to Title
 Used for building a song's title/name from the Work/Movement automatically.
 
