@@ -12,9 +12,17 @@ On Terminal, run:
 ```
 
 ## Use
-On Apple Music, the Scripts menu should be visible and contain the compiled scripts.
+After a successful compilation and installation, in Apple Music, the Scripts menu should be visible and contain the compiled scripts.
 
 ## Contents:
-1. 
+
+### Set Numeric Tags
+Used for setting incremental and total values for:
+* Track Number
+* Movement Number
+* CD Number
+
+### Work to Title
+Used for building a song's title/name from the Work/Movement automatically.
 
 ## Enjoy
