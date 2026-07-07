@@ -21,6 +21,26 @@ Used for setting incremental and total values for:
 * Movement Number
 * CD Number
 
+### Remove N Characters from Front or Back
+Used for removing N characters from the front or back of one of the following tags:
+
+* Title
+* Album
+* Album Artist
+* Artist
+* Category
+* Comments
+* Composer
+* Grouping
+* Work
+* Movement
+
+* Sort Title
+* Sort Album
+* Sort Album Artist
+* Sort Artist
+* Sort Composer
+
 ### Work to Title
 Used for building a song's title/name from the Work/Movement automatically.
 
