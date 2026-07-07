@@ -7,8 +7,7 @@ Scripts for automating tedious tasks in *Apple Music* (formerly *iTunes*).
 On Terminal, run:
 
 ```bash
-    make all
-    sudo make install
+make install
 ```
 
 ## Use
