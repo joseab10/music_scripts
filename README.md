@@ -61,6 +61,9 @@ Apply a SED command to a desired field. Supported fields are:
 * Sort Artist
 * Sort Composer
 
+### Title to Work
+Copies the song title as is into the Work name.
+
 ### Work to Title
 Used for building a song's title/name from the Work/Movement automatically.
 
