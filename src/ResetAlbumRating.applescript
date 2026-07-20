@@ -7,11 +7,11 @@ Set album rating and album recommendation flags for the selected albums.
 Rating options:
     Clear
     Computed
-    ?
-    ??
-    ???
-    ????
-    ?????
+    ★
+    ★★
+    ★★★
+    ★★★★
+    ★★★★★
 
 Recommendation:
     Clear
@@ -27,6 +27,35 @@ use framework "Foundation"
 use framework "AppKit"
 use scripting additions
 
+property ratingTitles : {¬
+    "Clear", ¬
+    "Computed", ¬
+    "★☆☆☆☆", ¬
+    "★★☆☆☆", ¬
+    "★★★☆☆", ¬
+    "★★★★☆", ¬
+    "★★★★★" ¬
+}
+property ratingValues : {¬
+    0, ¬
+    1, ¬
+    20, ¬
+    40, ¬
+    60, ¬
+    80, ¬
+    100 ¬
+}
+
+property recommendationTitles : {¬
+    "Clear", ¬
+    "♥︎ Favorite", ¬
+    "Suggest Less" ¬
+}
+property recommendationValues : {¬
+    {false, false}, ¬
+    {true, false}, ¬
+    {false, true}¬
+}
 
 on run()
 
@@ -79,25 +108,8 @@ on run()
 
     set ratingPopup to current application's NSPopUpButton's alloc()'s initWithFrame:{{180, 78}, {180, 26}}
 
-    set ratingItems to {�
-        {"Clear", 0}, �
-        {"Computed", 1}, �
-        {"?", 20}, �
-        {"??", 40}, �
-        {"???", 60}, �
-        {"????", 80}, �
-        {"?????", 100} �
-    }
-
-    repeat with entry in ratingItems
-
-        set titleText to item 1 of entry
-        set value to item 2 of entry
-
-        set menuItem to (ratingPopup's menu()'s addItemWithTitle:titleText action:(missing value) keyEquivalent:"")
-
-        menuItem's setRepresentedObject:value
-
+    repeat with t in ratingTitles
+        ratingPopup's addItemWithTitle:(contents of t)
     end repeat
 
     ratingPopup's selectItemAtIndex:0 -- Clear
@@ -115,16 +127,10 @@ on run()
 
     set recPopup to current application's NSPopUpButton's alloc()'s initWithFrame:{{180, 38}, {180, 26}}
 
-    set recommendationItems to {�
-        {"Clear", false, false}, �
-        {"Favorite", true, false}, �
-        {"Suggest Less", false, true} �
-    }
+    
 
-    repeat with entry in recommendationItems
-        set menuItem to (recPopup's menu()'s addItemWithTitle:(item 1 of entry) action:(missing value) keyEquivalent:"")
-
-        menuItem's setRepresentedObject:{item 2 of entry, item 3 of entry}
+    repeat with t in recommendationTitles
+        recPopup's addItemWithTitle:(contents of t)
     end repeat
 
     recPopup's selectItemAtIndex:0
@@ -162,15 +168,17 @@ on run()
             -- Album Rating
             --------------------------------------------------------------
             if doRating then
-                set ratingValue to ((ratingPopup's selectedItem()'s representedObject()) as integer)
-                set album rating of t to ratingValue 
+                set idx to (ratingPopup's indexOfSelectedItem()) + 1
+                set ratingValue to item idx of ratingValues
+                set album rating of t to ratingValue
             end if
 
             --------------------------------------------------------------
             -- Recommendation
             --------------------------------------------------------------
             if doRecommendation then
-                set {loveFlag, dislikeFlag} to (recPopup's selectedItem()'s representedObject())
+                set idx to (recPopup's indexOfSelectedItem()) + 1
+                set {loveFlag, dislikeFlag} to item idx of recommendationValues
 
                 set album loved of t to loveFlag
                 set album disliked of t to dislikeFlag
