@@ -180,7 +180,7 @@ on applySed(theText, sedExpr)
     set escapedText to quoted form of theText
     set escapedSed to quoted form of sedExpr
 
-    set cmd to "printf %s " & escapedText & " | sed -e " & escapedSed
+    set cmd to "printf %s " & escapedText & " | sed -E " & escapedSed
 
     try
         return do shell script cmd
